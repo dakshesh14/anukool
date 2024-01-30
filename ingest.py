@@ -63,8 +63,6 @@ def create_vector_database():
         chunk_size=1000, chunk_overlap=200, length_function=len
     )
     chunks = text_splitter.split_documents(loaded_documents)
-    print(f"Total chunks: {len(chunks)}")
-    print(f"First chunk: {chunks[0]}")
 
     # loading the embeddings
     if model_name == "openai-gpt":
