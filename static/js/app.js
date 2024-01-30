@@ -11,8 +11,8 @@ myForm.addEventListener("submit", (e) => {
   const aboutCompany = formData.get("aboutCompany");
 
   const payload = {
-    about_job: aboutJob,
-    about_company: aboutCompany,
+    job_description: aboutJob,
+    company_description: aboutCompany,
   };
 
   myButton.setAttribute("disabled", "disabled");

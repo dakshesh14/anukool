@@ -18,8 +18,7 @@ from langchain_openai.embeddings import OpenAIEmbeddings
 # local imports
 from helper import load_environment
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DOCUMENTS_DIR = os.path.join(BASE_DIR, "docs")
+MODEL_NAME = os.environ.get("MODEL_NAME", "openai-gpt")
 
 
 def create_vector_database():
@@ -37,8 +36,6 @@ def create_vector_database():
         if confirmation == "n":
             print("Aborting...")
             return
-
-    model_name = os.environ.get("MODEL_NAME", "openai-gpt")
 
     pdf_loader = DirectoryLoader(
         "docs/",
@@ -65,7 +62,7 @@ def create_vector_database():
     chunks = text_splitter.split_documents(loaded_documents)
 
     # loading the embeddings
-    if model_name == "openai-gpt":
+    if MODEL_NAME == "openai-gpt":
         embeddings = OpenAIEmbeddings()
     else:
         # TODO: get device from env or programmatically
@@ -79,6 +76,22 @@ def create_vector_database():
     vector_db.save_local("db")
 
     print("Vector database created successfully!")
+
+
+def get_vector_database():
+    """
+    Get the vector database from the db folder.
+    """
+
+    if MODEL_NAME == "openai-gpt":
+        embedding = OpenAIEmbeddings()
+    else:
+        embedding = HuggingFaceEmbeddings(
+            model_name="sentence-transformers/all-MiniLM-L6-v2",
+            model_kwargs={"device": "cpu"},
+        )
+
+    return FAISS.load_local("db", embedding)
 
 
 if __name__ == "__main__":
