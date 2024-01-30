@@ -10,9 +10,9 @@ from langchain.prompts.prompt import PromptTemplate
 from langchain_openai.llms import OpenAI
 
 # local imports
+from data_model.query import Query
 from helper import load_environment
 from ingest import get_vector_database
-from model.query import Query
 
 # loading environment
 load_environment()
