@@ -74,7 +74,7 @@ Contributions are welcome! In fact to promote the open source culture, I launche
 ## Future Scope
 
 - [ ] Reduce hallucination
-- [ ] Add option for llama-2 model
+- [x] Add option for llama-2 model
 - [ ] Add option for users to get a resume generated for the same job
 - [ ] Add option to get output for more commonly asked questions
 
