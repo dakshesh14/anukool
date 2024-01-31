@@ -34,7 +34,7 @@ cp .env.example .env
 
 By default, the app will use openai's model. If you wish to change that to llama-2, change the `MODEL_NAME` variable in `.env` file to `llama-2-7b.ggmlv3.q8_0.bin`.
 
-> Note: if you change the model to something other than openai's, you will have to download the model and place it in `models` folder. To download the model, run the following command:
+> Note: if you change the model to something other than openai's, you will have to download the model and place it in `models` folder. To download the model, run the following command(taking 7b model as an example):
 
 ```bash
 cd models
