@@ -1,5 +1,6 @@
 const myForm = document.getElementById("myForm");
-const myButton = document.getElementById("myButton");
+const generateButton = document.getElementById("generateButton");
+const copyButton = document.getElementById("copyButton");
 const contentArea = document.getElementById("contentArea");
 
 myForm.addEventListener("submit", (e) => {
@@ -15,8 +16,8 @@ myForm.addEventListener("submit", (e) => {
     company_description: aboutCompany,
   };
 
-  myButton.setAttribute("disabled", "disabled");
-  myButton.innerText = "Generating...";
+  generateButton.setAttribute("disabled", "disabled");
+  generateButton.innerText = "Generating...";
 
   axios({
     url: "/chat",
@@ -24,26 +25,34 @@ myForm.addEventListener("submit", (e) => {
     data: payload,
   })
     .then((res) => {
-      // removing all child elements
-      while (contentArea.firstChild) {
-        contentArea.removeChild(contentArea.firstChild);
-      }
+      const modalContentArea = document.getElementById("modalOutputArea");
+      modalContentArea.innerText = res.data.answer;
 
-      const pElement = document.createElement("p");
-      pElement.classList.add("text-muted");
-      pElement.innerText = res.data.answer;
+      const myModal = new bootstrap.Modal(
+        document.getElementById("coverLetterOutput")
+      );
 
-      const h2Element = document.createElement("h2");
-      h2Element.innerText = "Generated cover letter:";
-
-      contentArea.appendChild(h2Element);
-      contentArea.appendChild(pElement);
+      myModal.show();
     })
     .catch((err) => {
       console.error(err);
     })
     .finally(() => {
-      myButton.removeAttribute("disabled");
-      myButton.innerText = "Generate";
+      generateButton.removeAttribute("disabled");
+      generateButton.innerText = "Generate";
     });
+});
+
+copyButton.addEventListener("click", (e) => {
+  const modalContentArea = document.getElementById("modalOutputArea");
+  const textToCopy = modalContentArea.innerText;
+
+  navigator.clipboard.writeText(textToCopy);
+
+  copyButton.innerText = "Copied!";
+
+  const timeout = setTimeout(() => {
+    copyButton.innerText = "Copy";
+    clearTimeout(timeout);
+  }, 2000);
 });

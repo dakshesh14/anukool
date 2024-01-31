@@ -38,7 +38,11 @@
   <body>
     <main class="container overflow-auto">
       <div class="row py-5 min-vh-100">
-        <div class="col-md-8 col-sm-12 d-flex flex-column">
+        <div class="col-md-12 d-flex flex-column">
+          <h1>Enter details</h1>
+          <p class="text-muted">
+            Enter description of job and company to generate cover letter
+          </p>
           <form id="myForm" class="d-flex flex-column gap-2 max-vh-100 h-100">
             <div class="form-floating h-75">
               <textarea
@@ -60,13 +64,50 @@
               <label for="floatingTextarea">Enter about company</label>
             </div>
 
-            <button id="myButton" type="submit" class="btn btn-dark">
+            <button id="generateButton" type="submit" class="btn btn-dark">
               Generate
             </button>
           </form>
         </div>
+      </div>
 
-        <div id="contentArea" class="col-md-4 col-sm-12 d-flex flex-column" />
+      <div
+        class="modal fade"
+        id="coverLetterOutput"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="coverLetterOutputLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="coverLetterOutputLabel">
+                Generated cover letter
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body" id="modalOutputArea"></div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="button" id="copyButton" class="btn btn-primary">
+                Copy
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
   </body>
