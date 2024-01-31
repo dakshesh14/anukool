@@ -71,11 +71,11 @@
         </div>
       </div>
 
+      <!-- generated output modal -->
       <div
         class="modal fade"
         id="coverLetterOutput"
         data-bs-backdrop="static"
-        data-bs-keyboard="false"
         tabindex="-1"
         aria-labelledby="coverLetterOutputLabel"
         aria-hidden="true"
@@ -102,11 +102,82 @@
               >
                 Close
               </button>
+              <button type="button" id="downloadButton" class="btn btn-dark">
+                Download as PDF
+              </button>
               <button type="button" id="copyButton" class="btn btn-primary">
                 Copy
               </button>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- get full name and job title modal -->
+      <div
+        class="modal fade"
+        id="getUserInfoModal"
+        aria-hidden="true"
+        aria-labelledby="getUserInfoModal"
+        tabindex="-1"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <form id="userInfoForm" class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="getUserInfoModal">
+                Enter your details
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  placeholder="About job"
+                  id="fullName"
+                  name="fullName"
+                />
+                <label for="floatingTextarea">Full name</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  placeholder="About job"
+                  id="jobTitle"
+                  name="jobTitle"
+                />
+                <label for="floatingTextarea">Job title</label>
+              </div>
+              <div class="mb-3 form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="saveLocal"
+                  name="saveLocal"
+                />
+                <label class="form-check-label" for="saveLocal">
+                  Use this value for all future cover letters
+                </label>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                id="confirmDownloadButton"
+                class="btn btn-primary"
+                data-bs-target="#getUserInfoModal"
+                data-bs-toggle="modal"
+                data-bs-dismiss="modal"
+                type="submit"
+              >
+                Get PDF
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </main>

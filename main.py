@@ -1,6 +1,6 @@
 # fastapi imports
 from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
+from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
@@ -9,8 +9,8 @@ from langchain.chains.question_answering import load_qa_chain
 from langchain.prompts.prompt import PromptTemplate
 
 # local imports
-from data_model.query import Query
-from helper import load_environment, load_model
+from data_model.query import PDFQuery, Query
+from helper import load_environment, load_model, render_to_pdf
 from ingest import get_vector_database
 
 # loading environment
@@ -78,3 +78,40 @@ async def chat(body: Query):
     return {
         "answer": result["output_text"],
     }
+
+
+@app.post("/generate-pdf")
+async def generate_pdf(body: PDFQuery):
+    """
+    Generate PDF endpoint; takes the user input and returns the answer/cover letter.
+    """
+
+    full_name, job_title, content = (
+        body.full_name,
+        body.job_title,
+        body.content,
+    )
+
+    pdf_content = render_to_pdf(
+        templates,
+        "pdf/cover_letter.html",
+        {
+            "full_name": full_name,
+            "job_title": job_title,
+            "content": content,
+        },
+    )
+
+    # write the pdf to output folder
+    with open("output/cover_letter.pdf", "wb") as f:
+        f.write(pdf_content)
+
+    response = FileResponse(
+        "output/cover_letter.pdf",
+        media_type="application/pdf",
+    )
+    response.headers[
+        "Content-Disposition"
+    ] = f"attachment; filename={'cover_letter.pdf'}"
+
+    return response

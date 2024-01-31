@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        box-sizing: border-box;
+        font-family: "Roboto", sans-serif;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .p-2 {
+        padding: 2rem;
+      }
+
+      .content {
+        margin-top: 4rem;
+      }
+
+      h3 {
+        margin: 0;
+        padding: 0;
+        font-size: 5rem;
+        font-weight: 700;
+      }
+
+      h5 {
+        margin: 0;
+        padding: 0;
+        font-size: 1.5rem;
+        font-weight: 500;
+      }
+
+      hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(122, 122, 122, 0.1);
+      }
+    </style>
+
+    <title>{{ full_name }}'s Cover Letter.</title>
+  </head>
+  <body class="container p-2">
+    <div class="title-area">
+      <h3>{{ full_name }}</h3>
+      <h5>{{ job_title }}</h5>
+    </div>
+
+    <hr />
+
+    <div class="content">{{ content }}</div>
+  </body>
+</html>
