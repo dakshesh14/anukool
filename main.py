@@ -7,11 +7,10 @@ from fastapi.templating import Jinja2Templates
 # langchain imports
 from langchain.chains.question_answering import load_qa_chain
 from langchain.prompts.prompt import PromptTemplate
-from langchain_openai.llms import OpenAI
 
 # local imports
 from data_model.query import Query
-from helper import load_environment
+from helper import load_environment, load_model
 from ingest import get_vector_database
 
 # loading environment
@@ -55,7 +54,7 @@ async def chat(body: Query):
     )
 
     chain = load_qa_chain(
-        OpenAI(temperature=0),
+        load_model(),
         chain_type="stuff",
     )
 

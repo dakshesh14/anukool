@@ -32,6 +32,24 @@ pip install -r requirements.txt
 cp .env.example .env
 ```
 
+By default, the app will use openai's model. If you wish to change that to llama-2, change the `MODEL_NAME` variable in `.env` file to `llama-2-7b.ggmlv3.q8_0.bin`.
+
+> Note: if you change the model to something other than openai's, you will have to download the model and place it in `models` folder. To download the model, run the following command:
+
+```bash
+cd models
+wget https://huggingface.co/TheBloke/Llama-2-7B-GGML/resolve/main/llama-2-7b.ggmlv3.q8_0.bin?download=true
+
+```
+
+or in powershell 👇
+
+```bash
+Invoke-WebRequest -Uri "https://huggingface.co/TheBloke/Llama-2-7B-GGML/resolve/main/llama-2-7b.ggmlv3.q8_0.bin?download=true" -OutFile "models\llama-2-7b.ggmlv3.q8_0.bin" # in powershell
+```
+
+Additionally, you will have to populate the `HUGGINGFACEHUB_API_TOKEN` variable in `.env` file. To get the token, go to [huggingface](https://huggingface.co/settings/token) and copy the token.
+
 5. Add your pdf in `docs` folder.
 
 6. Run the script

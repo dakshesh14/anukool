@@ -21,7 +21,7 @@ from helper import load_environment
 MODEL_NAME = os.environ.get("MODEL_NAME", "openai-gpt")
 
 
-def create_vector_database():
+def create_vector_database(device="cpu"):
     """
     Create the vector database from the documents in the docs folder
     and save it in the db folder.
@@ -57,7 +57,7 @@ def create_vector_database():
 
     # splitting the documents into chunks
     text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=1000, chunk_overlap=200, length_function=len
+        chunk_size=512, chunk_overlap=24, length_function=len
     )
     chunks = text_splitter.split_documents(loaded_documents)
 
@@ -65,10 +65,9 @@ def create_vector_database():
     if MODEL_NAME == "openai-gpt":
         embeddings = OpenAIEmbeddings()
     else:
-        # TODO: get device from env or programmatically
         embeddings = HuggingFaceEmbeddings(
             model_name="sentence-transformers/all-MiniLM-L6-v2",
-            model_kwargs={"device": "cpu"},
+            model_kwargs={"device": device},
         )
 
     # creating the vector store
@@ -78,7 +77,7 @@ def create_vector_database():
     print("Vector database created successfully!")
 
 
-def get_vector_database():
+def get_vector_database(device="cpu"):
     """
     Get the vector database from the db folder.
     """
@@ -88,7 +87,7 @@ def get_vector_database():
     else:
         embedding = HuggingFaceEmbeddings(
             model_name="sentence-transformers/all-MiniLM-L6-v2",
-            model_kwargs={"device": "cpu"},
+            model_kwargs={"device": device},
         )
 
     return FAISS.load_local("db", embedding)

@@ -177,3 +177,4 @@ pyrightconfig.json
 # Everything inside docs and db directories
 docs/**/*
 db/**/*
+models/**/*
