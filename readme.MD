@@ -55,6 +55,7 @@ Additionally, you will have to populate the `HUGGINGFACEHUB_API_TOKEN` variable 
 6. Run the script
 
 ```bash
+python ingest.py # to ingest the pdf
 uvicorn main:app --reload
 ```
 
@@ -69,6 +70,7 @@ Contributions are welcome! In fact to promote the open source culture, I launche
 - FastAPI
 - LangChain
 - OpenAI
+- Llama-2
 - and others for their unwavering support.
 
 ## Future Scope
