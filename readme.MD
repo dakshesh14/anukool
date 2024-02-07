@@ -2,7 +2,7 @@
 
 An AI powered project to help job seekers by crafting cover letters. Host it on your local machine and use it to generate cover letters for your job applications.
 
-https://github.com/dakshesh14/anukool/assets/65905942/1d6b61f1-0693-4e6e-b370-6276e290e790
+https://github.com/dakshesh14/anukool/assets/65905942/b3aa3222-48a9-4981-b56c-a37332882194
 
 ## Setup
 
