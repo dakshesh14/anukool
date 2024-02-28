@@ -10,11 +10,8 @@ from langchain.prompts.prompt import PromptTemplate
 
 # local imports
 from data_model.query import PDFQuery, Query
-from helper import load_environment, load_model, render_to_pdf
+from helper import load_model, render_to_pdf
 from ingest import get_vector_database
-
-# loading environment
-load_environment()
 
 # settings FastAPI app
 app = FastAPI()
@@ -110,8 +107,8 @@ async def generate_pdf(body: PDFQuery):
         "output/cover_letter.pdf",
         media_type="application/pdf",
     )
-    response.headers[
-        "Content-Disposition"
-    ] = f"attachment; filename={'cover_letter.pdf'}"
+    response.headers["Content-Disposition"] = (
+        f"attachment; filename={'cover_letter.pdf'}"
+    )
 
     return response

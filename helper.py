@@ -1,6 +1,6 @@
-import os
-
-import dotenv
+"""
+Helper functions for the app.
+"""
 
 # fastapi imports
 from fastapi.templating import Jinja2Templates
@@ -12,15 +12,8 @@ from langchain_openai.llms import OpenAI
 # for pdf generation
 from xhtml2pdf import pisa
 
-
-def load_environment():
-    """
-    Load environment variables from the .env file.
-    """
-    dotenv_file = os.path.join(os.path.dirname(__file__), ".env")
-
-    if os.path.isfile(dotenv_file):
-        dotenv.load_dotenv(dotenv_file)
+# env variables
+from constants import MODEL_PATH, OPENAI_API_KEY, USE_OPENAI
 
 
 def load_model(
@@ -30,17 +23,14 @@ def load_model(
     Load the model from the environment variables.
     """
 
-    load_environment()
-
-    MODEL_NAME = os.environ.get("MODEL_NAME", "openai-gpt")
-
-    if MODEL_NAME == "openai-gpt":
+    if USE_OPENAI:
         return OpenAI(
             temperature=temperature,
+            api_key=OPENAI_API_KEY,
         )
 
     return CTransformers(
-        model=f"models/{MODEL_NAME}",
+        model=MODEL_PATH,
         model_type="llama",
         max_new_tokens=1024,
         temperature=temperature,
