@@ -2,7 +2,6 @@
 This file contains the code for ingesting data from the data source. 
 """
 
-
 import os
 
 from langchain.embeddings.huggingface import HuggingFaceEmbeddings
@@ -15,10 +14,8 @@ from langchain_community.document_loaders import (
 from langchain_community.vectorstores.faiss import FAISS
 from langchain_openai.embeddings import OpenAIEmbeddings
 
-# local imports
-from helper import load_environment
-
-MODEL_NAME = os.environ.get("MODEL_NAME", "openai-gpt")
+# env variables
+from constants import OPENAI_API_KEY, USE_OPENAI
 
 
 def create_vector_database(device="cpu"):
@@ -62,8 +59,8 @@ def create_vector_database(device="cpu"):
     chunks = text_splitter.split_documents(loaded_documents)
 
     # loading the embeddings
-    if MODEL_NAME == "openai-gpt":
-        embeddings = OpenAIEmbeddings()
+    if USE_OPENAI:
+        embeddings = OpenAIEmbeddings(api_key=OPENAI_API_KEY)
     else:
         embeddings = HuggingFaceEmbeddings(
             model_name="sentence-transformers/all-MiniLM-L6-v2",
@@ -82,8 +79,8 @@ def get_vector_database(device="cpu"):
     Get the vector database from the db folder.
     """
 
-    if MODEL_NAME == "openai-gpt":
-        embedding = OpenAIEmbeddings()
+    if USE_OPENAI:
+        embedding = OpenAIEmbeddings(api_key=OPENAI_API_KEY)
     else:
         embedding = HuggingFaceEmbeddings(
             model_name="sentence-transformers/all-MiniLM-L6-v2",
@@ -94,5 +91,4 @@ def get_vector_database(device="cpu"):
 
 
 if __name__ == "__main__":
-    load_environment()
     create_vector_database()
